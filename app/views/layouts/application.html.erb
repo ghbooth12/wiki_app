@@ -12,12 +12,12 @@
     <ul class="nav nav-tabs">
       <div class="pull-right user-info">
         <% if user_signed_in? %>
-          Signed in as: <strong><%= current_user.email %></strong> |
-          <%= link_to "Edit profile", edit_user_registration_path, class: 'navbar-link' %> -
+          <strong><%= link_to current_user.email, '#' %></strong> |
+          <%= link_to "Edit profile", edit_user_registration_path, class: 'navbar-link' %> |
           <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: 'navbar-link'%>
         <% else %>
-        <%= link_to "Sign Up", new_user_registration_path, class: 'navbar-link' %> |
-        <%= link_to "Sign In", new_user_session_path, class: 'navbar-link' %>
+          <%= link_to "Sign Up", new_user_registration_path, class: 'navbar-link' %> |
+          <%= link_to "Sign In", new_user_session_path, class: 'navbar-link' %>
         <% end %>
       </div>
     </ul>
