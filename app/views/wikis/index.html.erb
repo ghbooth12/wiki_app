@@ -1,8 +1,8 @@
 <!-- <p id="notice"><%= notice %></p> -->
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-10 col-md-offset-1">
     <div class="page-header">
-      <h1 class="text-center">My Wikis List</h1>
+      <h1 class="text-center">Wikis</h1>
       <p class="pull-right">- share your information with the world</p>
       <br>
     </div>
@@ -13,12 +13,14 @@
           <th>Private</th>
           <th>Title</th>
           <th>Body</th>
+          <th>User</th>
+          <th>Created At</th>
           <th colspan="2">Manage</th>
         </tr>
       </thead>
 
       <tbody>
-        <% @wikis.each do |wiki| %>
+        <% @wikis.ordered_by_created_at.each do |wiki| %>
           <tr>
             <% if wiki.private %>
               <td><span class="glyphicon glyphicon-lock"></span></td>
@@ -27,6 +29,8 @@
             <% end %>
             <td><%= link_to truncate(wiki.title), wiki %></td>
             <td><%= link_to truncate(wiki.body), wiki %></td>
+            <td><%= wiki.user.email %></td>
+            <td><%= wiki.created_at.strftime("%F %T %:z") %></td>
             <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
             <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
           </tr>

@@ -21,7 +21,8 @@
         <% end %>
 
         <div class="pull-right">
-          updated on <%= @wiki.updated_at.strftime("%B %d, %Y") %>
+          updated on <%= @wiki.updated_at.strftime("%F %T %:z") %> |
+          created on <%= @wiki.created_at.strftime("%F %T %:z") %>
         </div>
       </div>
     </div>
