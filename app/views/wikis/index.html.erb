@@ -1,0 +1,41 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="page-header">
+      <h1 class="text-center">My Wikis List</h1>
+      <p class="pull-right">- share your information with the world</p>
+      <br>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Private</th>
+          <th>Title</th>
+          <th>Body</th>
+          <th colspan="2">Manage</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @wikis.each do |wiki| %>
+          <tr>
+            <% if wiki.private %>
+              <td><span class="glyphicon glyphicon-lock"></span></td>
+            <% else %>
+              <td><span class="glyphicon glyphicon-globe"></span></td>
+            <% end %>
+            <td><%= link_to truncate(wiki.title), wiki %></td>
+            <td><%= link_to truncate(wiki.body), wiki %></td>
+            <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+            <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+
+    <small><span class="glyphicon glyphicon-globe"></span> public | <span class="glyphicon glyphicon-lock"></span> private</small>
+    <%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-primary pull-right' %>
+  </div>
+</div>
