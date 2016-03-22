@@ -1,0 +1,19 @@
+// Place all the styles related to the Wikis controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.wiki_form {
+  input[type="text"] {
+    width: 100%;
+    height: 2.5em;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 10px;
+  }
+  textarea {
+    width: 100%;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 10px;
+  }
+}
