@@ -12,7 +12,7 @@
         <h3 class="panel-title"><%= @wiki.title %></h3>
       </div>
       <div class="panel-body">
-        <%= @wiki.body %>
+        <%= markdown_wiki(@wiki.body) %>
         <hr>
         <% if @wiki.private %>
           <span class="glyphicon glyphicon-lock"></span> private
