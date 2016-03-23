@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :charges, only: [:new, :create]
+  delete 'charges/cancel_premium' => 'charges#cancel_premium', as: :cancel_premium
+
   resources :wikis
   devise_for :users
   root 'welcome#index'
