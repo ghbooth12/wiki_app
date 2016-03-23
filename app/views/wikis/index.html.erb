@@ -1,6 +1,6 @@
 <!-- <p id="notice"><%= notice %></p> -->
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-8 col-md-offset-2">
     <div class="page-header">
       <h1 class="text-center">Wikis</h1>
       <p class="pull-right">- share your information with the world</p>
@@ -12,7 +12,6 @@
         <tr>
           <th>Private</th>
           <th>Title</th>
-          <th>Body</th>
           <th>User</th>
           <th>Created At</th>
           <% if current_user %>
@@ -30,7 +29,6 @@
               <td><span class="glyphicon glyphicon-globe"></span></td>
             <% end %>
             <td><%= link_to truncate(wiki.title), wiki %></td>
-            <td><%= link_to truncate(wiki.body), wiki %></td>
             <td><%= wiki.user.email %></td>
             <td><%= wiki.created_at.strftime("%F %T %:z") %></td>
             <% if user_is_authorized?(wiki) %>
