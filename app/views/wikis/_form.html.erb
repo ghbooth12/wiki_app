@@ -1,7 +1,7 @@
 <%= form_for @wiki, html: { class: "wiki_form" } do |f| %>
   <% if @wiki.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@wiki.errors.count, "error") %> prohibited this wiki from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4><%= pluralize(@wiki.errors.count, "error") %> prohibited this wiki from being saved:</h4>
       <ul>
         <% @wiki.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -18,10 +18,13 @@
     <%= f.label :body, class: 'sr-only' %><br>
     <%= f.text_area :body, rows: 7, placeholder: 'Share what you know.' %>
   </div>
-  <div class="field form-group">
-    <%= f.check_box :private %>
-    <%= f.label :private %>
-  </div>
+  <% if current_user.premium? || current_user.admin? %>
+    <div class="checkbox">
+      <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private wiki
+      <% end %>
+    </div>
+  <% end %>
   <div class="actions form-group pull-right">
     <%= button_tag(type: "submit", class: "btn btn-primary") do %>
       <span class="glyphicon glyphicon-ok-circle"></span> Save Wiki

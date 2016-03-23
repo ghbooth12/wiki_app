@@ -15,12 +15,14 @@
           <th>Body</th>
           <th>User</th>
           <th>Created At</th>
-          <th colspan="2">Manage</th>
+          <% if current_user %>
+            <th colspan="2">Manage</th>
+          <% end %>
         </tr>
       </thead>
 
       <tbody>
-        <% @wikis.ordered_by_created_at.each do |wiki| %>
+        <% @wikis.visible_to(current_user).ordered_by_created_at.each do |wiki| %>
           <tr>
             <% if wiki.private %>
               <td><span class="glyphicon glyphicon-lock"></span></td>
@@ -31,8 +33,10 @@
             <td><%= link_to truncate(wiki.body), wiki %></td>
             <td><%= wiki.user.email %></td>
             <td><%= wiki.created_at.strftime("%F %T %:z") %></td>
-            <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-            <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
+            <% if user_is_authorized?(wiki) %>
+              <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+              <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -40,7 +44,9 @@
     <br>
 
     <small><span class="glyphicon glyphicon-globe"></span> public | <span class="glyphicon glyphicon-lock"></span> private</small>
-    <%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-primary pull-right' %>
+    <% if current_user %>
+      <%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-primary pull-right' %>
+    <% end %>
   </div>
 </div>
 <br><br>
