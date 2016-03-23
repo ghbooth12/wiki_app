@@ -42,8 +42,8 @@
     <% if current_user.premium? %>
       <div class="row">
         <h4>Cancelation the premium service</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-        <%= link_to "Cancel Premium", cancel_premium_path, method: :delete, class: 'btn btn-danger pull-right' %>
+        <p>If you cancel your premium service, all your private wikis will be public.</p>
+        <%= link_to "Cancel Premium", cancel_premium_path, method: :delete, class: 'btn btn-danger pull-right', data: { confirm: "If you cancel your premium service, all your private wikis will be public. Do you still want to proceed?" } %>
       </div> <!-- /.row -->
     <% end %>
   </div> <!-- /.col-md-6 col-md-offset-3 -->

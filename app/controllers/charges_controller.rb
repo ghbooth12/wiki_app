@@ -38,7 +38,11 @@ class ChargesController < ApplicationController
 
   def cancel_premium
     current_user.standard!
-    flash[:notice] = "You have canceled Premium servie, #{current_user.email}! You are now #{current_user.role} member."
+    current_user.wikis.each do |wiki|
+      wiki.update_attribute(:private, false)
+    end
+
+    flash[:notice] = "You have canceled Premium servie, #{current_user.email}! You are now #{current_user.role} member and all your wikis are public now."
     redirect_to wikis_path
   end
 end
