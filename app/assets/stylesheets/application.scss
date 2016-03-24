@@ -21,6 +21,6 @@
   margin-top: 10px;
 }
 
-a:hover {
+a:link, a:hover, a:focus, a:visited {
   text-decoration: none;
 }

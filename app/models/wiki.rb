@@ -1,5 +1,7 @@
 class Wiki < ActiveRecord::Base
   belongs_to :user
+  has_many :collaborators
+  has_many :users, through: :collaborators
 
   scope :ordered_by_created_at, -> { order('created_at DESC') }
   scope :visible_to, -> (user) do
