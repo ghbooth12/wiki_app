@@ -21,18 +21,20 @@
       </thead>
 
       <tbody>
-        <% @wikis.visible_to(current_user).ordered_by_created_at.each do |wiki| %>
+        <% @wikis.each do |wiki| %>
           <tr>
             <% if wiki.private %>
               <td><span class="glyphicon glyphicon-lock"></span></td>
             <% else %>
               <td><span class="glyphicon glyphicon-globe"></span></td>
             <% end %>
-            <td><%= link_to truncate(wiki.title), wiki %></td>
-            <td><%= wiki.user.email %></td>
-            <td><%= wiki.created_at.strftime("%F %T %:z") %></td>
+            <td><span class="badge"><%= wiki.collaborators.count %></span> <%= link_to truncate(wiki.title), wiki %></td>
+            <td><%= wiki.id %> | <%= wiki.user.email %></td>
+            <td><%= wiki.created_at.strftime("%F %T") %></td>
             <% if user_is_authorized?(wiki) %>
               <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+            <% end %>
+            <% if owner_or_admin(wiki) %>
               <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
             <% end %>
           </tr>
@@ -41,7 +43,8 @@
     </table>
     <br>
 
-    <small><span class="glyphicon glyphicon-globe"></span> public | <span class="glyphicon glyphicon-lock"></span> private</small>
+    <small><span class="glyphicon glyphicon-globe"></span> public | <span class="glyphicon glyphicon-lock"></span> private |
+    <span class="badge">#</span> collaborators</small>
     <% if current_user %>
       <%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-primary pull-right' %>
     <% end %>

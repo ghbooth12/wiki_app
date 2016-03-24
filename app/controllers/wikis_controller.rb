@@ -1,22 +1,16 @@
 class WikisController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_wiki, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+  before_action :owner_or_admin, only: :destroy
 
   # GET /wikis
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   # GET /wikis/1
   def show
-    if @wiki.private && !current_user # guest user
-      flash[:alert] = "Please sign in to view private wikis."
-      redirect_to new_user_session_path
-    elsif @wiki.private && current_user && !(current_user.premium? || current_user.admin?)
-      flash[:alert] = "Only premium members can view the private wikis."
-      redirect_to new_charge_path
-    end
   end
 
   # GET /wikis/new
@@ -31,19 +25,27 @@ class WikisController < ApplicationController
   # POST /wikis
   def create
     @wiki = current_user.wikis.build(wiki_params)
+    @wiki.user = current_user
+    collabs = Collaborator.make_collaborators(params[:wiki][:collaborators], params[:wiki][:id])
 
-    if @wiki.save
+    if @wiki.save && Collaborator.invalid_emails.blank?
+      @wiki.collaborators = collabs
       redirect_to @wiki, notice: 'Wiki was successfully created.'
     else
+      flash.now[:alert] = "Invalid emails: #{Collaborator.invalid_emails.map {|e| e }.join(', ')}" if Collaborator.invalid_emails.present?
       render :new
     end
   end
 
   # PATCH/PUT /wikis/1
   def update
-    if @wiki.update(wiki_params)
+    collabs = Collaborator.make_collaborators(params[:wiki][:collaborators], params[:wiki][:id])
+
+    if @wiki.update(wiki_params) && Collaborator.invalid_emails.blank?
+      @wiki.collaborators = collabs
       redirect_to @wiki, notice: 'Wiki was successfully updated.'
     else
+      flash.now[:alert] = "Invalid emails: #{Collaborator.invalid_emails.map {|e| e }.join(', ')}" if Collaborator.invalid_emails.present?
       render :edit
     end
   end
@@ -70,9 +72,20 @@ class WikisController < ApplicationController
     end
 
     def authorize_user
-      unless current_user == @wiki.user || current_user.admin?
-        flash[:alert] = "Sorry, you are not authorized."
+      if @wiki.private && !current_user # guest user
+        flash[:alert] = "Please sign in to view wikis."
+        redirect_to new_user_session_path
+      elsif @wiki.private && current_user &&
+        !(current_user == @wiki.user || @wiki.collaborators.pluck(:user_id).include?(current_user.id) || current_user.admin?)
+        flash[:alert] = "This wiki's owner or its collaborators ONLY see this view."
         redirect_to wikis_path
+      end
+    end
+
+    def owner_or_admin
+      unless current_user == @wiki.user || current_user.admin?
+        flash[:alert] = "Only this wiki's owner and an admin can do that."
+        redirect_to wiki_path(@wiki)
       end
     end
 end

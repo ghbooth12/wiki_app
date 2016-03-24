@@ -18,15 +18,14 @@ class ChargesController < ApplicationController
     current_user.premium!
     flash[:notice] = "Upgraded to Premium successfully, #{current_user.email}! Feel free to create the private wikis!"
     redirect_to wikis_path
-  end
 
-  # Stripe will send back CardErrors, with friendly messages
-  # When something goes wrong.
-  # This 'rescue block' catches and displays those errors.
-  # rescue Stripe::CardError => e
-  #   flash.now[:alert] = e.message
-  #   redirect_to new_charge_path
-  # end
+    # Stripe will send back CardErrors, with friendly messages
+    # When something goes wrong.
+    # This 'rescue block' catches and displays those errors.
+    rescue Stripe::CardError => e
+      flash.now[:alert] = e.message
+      redirect_to new_charge_path
+  end
 
   def new
     @stripe_btn_data = {
@@ -38,7 +37,8 @@ class ChargesController < ApplicationController
 
   def cancel_premium
     current_user.standard!
-    current_user.wikis.each do |wiki|
+    # current_user.wikis.each do |wiki|
+    Wiki.where(user_id: current_user.id).each do |wiki|
       wiki.update_attribute(:private, false)
     end
 

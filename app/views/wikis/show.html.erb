@@ -25,6 +25,10 @@
           created on <%= @wiki.created_at.strftime("%F") %> by <%= @wiki.user.email %>
         </div>
       </div>
+      <div class="panel-footer">
+        <small>Collaborators</small>
+        <%= display_collaborators(@wiki.collaborators) %>
+      </div>
     </div>
 
     <%= link_to 'Back to list', wikis_path, class: 'btn btn-default' %>
@@ -32,6 +36,8 @@
     <% if user_is_authorized?(@wiki) %>
       <div class="pull-right">
         <%= link_to 'Edit', edit_wiki_path(@wiki), class: 'btn btn-primary' %>
+    <% end %>
+    <% if owner_or_admin(@wiki) %>
         <%= link_to 'Delete', @wiki, method: :delete, class: 'btn btn-warning', data: { confirm: "Are you sure you want to delete this wiki?" } %>
       </div>
     <% end %>
