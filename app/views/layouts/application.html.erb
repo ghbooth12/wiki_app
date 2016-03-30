@@ -15,7 +15,7 @@
       <% if current_user.nil? || current_user.standard? %>
         <li><%= link_to "Premium", new_charge_path %></li>
       <% else %>
-        <li><%= link_to "My Premium Settings", new_charge_path %></li>
+        <li><%= link_to "My Premium Settings", new_charge_path, id: 'change-premium-settings' %></li>
       <% end %>
 
       <div class="pull-right user-info">
