@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require epiceditor
 //= require_tree .
 
 var analytics_app = {};
