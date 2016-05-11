@@ -14,7 +14,7 @@
     <%= f.label :title, class: 'sr-only' %><br>
     <%= f.text_field :title, autofocus: true, placeholder: 'Type your title here', class: 'form-control' %>
   </div>
-
+  <!-- Body: <%#= f.object.body %> -->
   <div class="field form-group">
     <%= f.label :body, class: 'sr-only' %><br>
     <div id="epiceditor">
@@ -41,8 +41,3 @@
     <% end %>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  var editor = new EpicEditor(opts).load();
-  // var editor = new EpicEditor().load();
-</script>
