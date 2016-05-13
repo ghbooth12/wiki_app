@@ -4,7 +4,7 @@ module WikisHelper
   end
 
   def owner_or_admin(wiki)
-    current_user == wiki.user || current_user.admin?
+    current_user == wiki.user || current_user && current_user.admin?
   end
 
   def markdown_wiki(text)
