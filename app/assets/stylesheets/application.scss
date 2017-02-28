@@ -30,3 +30,34 @@
 a:link, a:hover, a:focus, a:visited {
   text-decoration: none;
 }
+
+// Custom Styling
+.text-faded {
+  color: #aaa;
+}
+
+.hover-link {
+  a {
+    color: #333;
+    -webkit-transition: color .15s ease-in-out;
+    transition: color .15s ease-in-out;
+
+    &:hover {
+      color: #1397ff;
+    }
+  }
+}
+
+
+#steps {
+  li {
+    font-size: 1.2em;
+  }
+  // Override hove-link for bootstrap buttons
+  a.btn {
+    color: #fff;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

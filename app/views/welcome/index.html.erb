@@ -1,6 +1,52 @@
 <div class="jumbotron">
   <h1>Wiki App</h1>
-  <p>This is a production quality SaaS app that allows users to create public and private Markdown-based wikis.</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-  <button id="target-element">I'm Button</button>
+  <p>Wiki app is a production quality SaaS app that allows users to create their own wikis. Users can create public and private Markdown-based wikis.</p>
+
+  <p>Wikis are a great way to collaborate on community-sourced content. Whether the wiki is for a hobby or work-related project, users can create their own wikis and share them publicly or privately with other collaborators.</p>
+  <a id="target-element" class="btn btn-primary btn-lg" href="/wikis" role="button">See wikis</a>
 </div>
+
+<div id="steps" class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h2><strong>How it works</strong></h2>
+        <p>Log-in as test user account, take a look how it works.</p>
+      </div>
+      <div class="panel-body">
+        <div class="well">
+          <ol class="hover-link">
+            <li>
+              Log in as test user automatically. <%= link_to "Click here", auto_sign_path, class: 'btn btn-xs btn-success' %>
+            </li>
+            <li>
+              <%= link_to wikis_path do %>
+                Go to Wiki index page. <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_wiki_path do %>
+                Create a new wiki. It supports Markdown syntax.(Hover around bottom right, you will see the preview of your wiki.) <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_wiki_path do %>
+                Add collaborators of the new wiki in the form. <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          </ol>
+
+          <h4>For Premium User</h4>
+          <p>Test User is already a premium level for demonstration.</p>
+          <ul class="hover-link">
+            <li>
+              <%= link_to new_charge_path do %>
+                Upgrade membership by paying just $1. The premium membership can be canceled at any time. Premium users can have private wikis.(Even if the wiki is collaborated with standard users.) <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          </ul>
+        </div> <!-- .well -->
+      </div> <!-- .panel-body -->
+    </div> <!-- .panel -->
+  </div> <!-- .col-xs-12 -->
+</div> <!-- .row -->

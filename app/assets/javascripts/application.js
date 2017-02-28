@@ -30,7 +30,7 @@ analytics_app.report = function(eventName){
 };
 
 $(document).ready(function(){
-  console.log("ready");
+  // console.log("ready");
   $('#target-element').on("click", function(){
     analytics_app.report("Clicked Welcome button");
   });
