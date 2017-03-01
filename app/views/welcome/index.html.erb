@@ -35,6 +35,11 @@
                 Add collaborators of the new wiki in the form. <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
               <% end %>
             </li>
+            <li>
+              <%= link_to my_page_path(user: User.find_by(email: "test@test.io")) do %>
+                See user profile. <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+              <% end %>
+            </li>
           </ol>
 
           <h4>For Premium User</h4>

@@ -29,6 +29,6 @@ module WikisHelper
   end
 
   def display_collaborators(collaborators)
-    raw collaborators.map {|c| link_to User.find(c.user_id).email, '#',  class: 'btn-xs btn-primary' }.join(' ')
+    raw collaborators.map {|c| link_to User.find(c.user_id).email, my_page_path(user: User.find(c.user_id)),  class: 'btn-xs btn-primary' }.join(' ')
   end
 end
