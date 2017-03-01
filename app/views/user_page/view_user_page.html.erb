@@ -9,41 +9,72 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Public Wikis</h3>
-        </div>
-        <div class="panel-body">
-          <% @public_wikis.each do |w| %>
-            <p><%= link_to w.title, wiki_path(w) %></p>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Private Wikis</h3>
-        </div>
-        <div class="panel-body">
-          <% @private_wikis.each do |w| %>
-            <p><%= link_to w.title, wiki_path(w) %></p>
-          <% end %>
+    <% if @user == current_user || current_user.admin? %>
+      <div class="col-xs-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Public Wikis</h3>
+          </div>
+          <div class="panel-body">
+            <% @public_wikis.each do |w| %>
+              <p><%= link_to w.title, wiki_path(w) %></p>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Collaborated Wikis</h3>
-        </div>
-        <div class="panel-body">
-          <% @collaborated_wikis.each do |w| %>
-            <p><%= link_to w.title, wiki_path(w) %></p>
-          <% end %>
+      <div class="col-xs-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Private Wikis</h3>
+          </div>
+          <div class="panel-body">
+            <% if @user.premium? %>
+              <% @private_wikis.each do |w| %>
+                <p><%= link_to w.title, wiki_path(w) %></p>
+              <% end %>
+            <% else %>
+              <%= link_to "Upgrade membership", new_charge_path, class: 'btn btn-success btn-xs' %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="col-xs-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Collaborated Wikis</h3>
+          </div>
+          <div class="panel-body">
+            <% @collaborated_wikis.each do |w| %>
+              <p><%= link_to w.title, wiki_path(w) %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Public Wikis</h3>
+          </div>
+          <div class="panel-body">
+            <% @public_wikis.each do |w| %>
+              <p><%= link_to w.title, wiki_path(w) %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Collaborated Wikis</h3>
+          </div>
+          <div class="panel-body">
+            <% @collaborated_wikis.each do |w| %>
+              <p><%= link_to w.title, wiki_path(w) if !w.private || @user == current_user %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

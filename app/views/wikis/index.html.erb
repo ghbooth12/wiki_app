@@ -30,7 +30,7 @@
               <td><span class="glyphicon glyphicon-globe"></span></td>
             <% end %>
             <td><span class="badge"><%= wiki.collaborators.count %></span> <%= link_to truncate(wiki.title), wiki %></td>
-            <td><%= wiki.user.email %></td>
+            <td><%= link_to wiki.user.email, my_page_path(user: wiki.user) %></td>
             <td><%= wiki.created_at.strftime("%F %T") %></td>
             <% if user_is_authorized?(wiki) %>
               <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>

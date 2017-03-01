@@ -22,7 +22,7 @@
 
         <div class="pull-right">
           updated on <%= @wiki.updated_at.strftime("%F") %> |
-          created on <%= @wiki.created_at.strftime("%F") %> by <%= @wiki.user.email %>
+          created on <%= @wiki.created_at.strftime("%F") %> by <%= link_to @wiki.user.email, my_page_path(user: @wiki.user) %>
         </div>
       </div>
       <div class="panel-footer">
