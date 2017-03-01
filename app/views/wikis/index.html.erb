@@ -6,12 +6,13 @@
       <p class="pull-right">- share your information with the world</p>
       <br>
     </div>
+    <p class="text-faded text-center">List of public wikis. For premium members private wikis are listed as well.</p>
 
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Private</th>
-          <th>Title</th>
+          <th>Wiki Type</th>
+          <th>Title(number of collaborators)</th>
           <th>User</th>
           <th>Created At</th>
           <% if current_user %>
@@ -43,8 +44,8 @@
     </table>
     <br>
 
-    <small><span class="glyphicon glyphicon-globe"></span> public | <span class="glyphicon glyphicon-lock"></span> private |
-    <span class="badge">#</span> collaborators</small>
+    <small><span class="glyphicon glyphicon-globe"></span> public wiki | <span class="glyphicon glyphicon-lock"></span> private wiki |
+    <span class="badge">#</span> number of collaborators</small>
     <% if current_user %>
       <%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-primary pull-right' %>
     <% end %>

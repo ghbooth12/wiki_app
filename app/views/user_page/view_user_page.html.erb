@@ -1,0 +1,49 @@
+<br>
+<div class="container">
+  <div class="jumbotron">
+    <h3><%= @user.email %></h3>
+    <p class="text-faded">This page shows all your wikis and wikis you collaborated with others.</p>
+    <%= link_to "Edit profile", edit_user_registration_path, class: 'btn btn-info' %>
+    <a id="target-element" class="btn btn-primary" href="/wikis" role="button">Go to wiki list</a>
+    <%= link_to "Write New Wiki", new_wiki_path, class: 'btn btn-success' %>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Public Wikis</h3>
+        </div>
+        <div class="panel-body">
+          <% @public_wikis.each do |w| %>
+            <p><%= link_to w.title, wiki_path(w) %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Private Wikis</h3>
+        </div>
+        <div class="panel-body">
+          <% @private_wikis.each do |w| %>
+            <p><%= link_to w.title, wiki_path(w) %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Collaborated Wikis</h3>
+        </div>
+        <div class="panel-body">
+          <% @collaborated_wikis.each do |w| %>
+            <p><%= link_to w.title, wiki_path(w) %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

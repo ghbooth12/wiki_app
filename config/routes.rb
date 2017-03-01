@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'auto_sign' => 'welcome#auto_sign'
+  get 'my_page' => 'user_page#view_user_page'
 
   root 'welcome#index'
 

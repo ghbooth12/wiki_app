@@ -20,8 +20,7 @@
 
       <div class="pull-right user-info">
         <% if user_signed_in? %>
-          <strong><%= link_to current_user.email, '#' %></strong> |
-          <%= link_to "Edit profile", edit_user_registration_path, class: 'navbar-link' %> |
+          <strong><%= link_to current_user.email, my_page_path(user: current_user) %></strong> |
           <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: 'navbar-link'%>
         <% else %>
           <%= link_to "Sign Up", new_user_registration_path, class: 'navbar-link' %> |
